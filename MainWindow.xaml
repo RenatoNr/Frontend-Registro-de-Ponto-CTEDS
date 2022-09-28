@@ -1,0 +1,35 @@
+﻿<Window x:Class="Frontend_Registro_de_Ponto_CTEDS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Frontend_Registro_de_Ponto_CTEDS"
+        mc:Ignorable="d"
+        Title="Trabalho Final CTEDS" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label FontSize="18" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center" Margin="234,0,0,0" Content="Registro de Pontos - CTEDS" Grid.Column="1" Height="33" Width="228" />
+        <Ellipse Height="100" Grid.Row="1" VerticalAlignment="Top" Grid.Column="1" Margin="299,0,350,0">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="https://spng.pngfind.com/pngs/s/49-491581_clock-icon-clock-blue-png-transparent-png-download.png"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Label Content="Insira o seu CPF" HorizontalAlignment="Left" Margin="275,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="98" Grid.Column="1" Height="26"/>
+        <TextBox HorizontalAlignment="Left" Margin="278,24,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="22"/>
+        <Label Content="Insira sua senha" HorizontalAlignment="Left" Margin="275,47,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="26"/>
+        <TextBox HorizontalAlignment="Left" Margin="278,75,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="22" />
+        <Button Content="Entrar" HorizontalAlignment="Left" Margin="278,111,0,0" Grid.RowSpan="2" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="20"/>
+
+    </Grid>
+</Window>

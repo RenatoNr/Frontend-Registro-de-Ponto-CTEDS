@@ -1,0 +1,9 @@
+﻿<Application x:Class="Frontend_Registro_de_Ponto_CTEDS.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Frontend_Registro_de_Ponto_CTEDS"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
