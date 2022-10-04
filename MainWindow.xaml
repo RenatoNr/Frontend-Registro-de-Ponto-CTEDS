@@ -5,31 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend_Registro_de_Ponto_CTEDS"
         mc:Ignorable="d"
-        Title="Trabalho Final CTEDS" Height="450" Width="800">
+        Title="Trabalho Final CTEDS" Height="650" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="749*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="45" />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="281*" />
+            <RowDefinition Height="128*" />
+            <RowDefinition Height="180*" />
         </Grid.RowDefinitions>
         <Label FontSize="18" 
                HorizontalAlignment="Left" 
                VerticalAlignment="Center" Margin="234,0,0,0" Content="Registro de Pontos - CTEDS" Grid.Column="1" Height="33" Width="228" />
-        <Ellipse Height="100" Grid.Row="1" VerticalAlignment="Top" Grid.Column="1" Margin="299,0,350,0">
-            <Ellipse.Fill>
-                <ImageBrush ImageSource="https://spng.pngfind.com/pngs/s/49-491581_clock-icon-clock-blue-png-transparent-png-download.png"/>
+        <Ellipse Height="99" Grid.Row="1" VerticalAlignment="Top" Grid.Column="1" Margin="295,0,350,0">
+            <Ellipse.Fill >
+                <ImageBrush x:Name="EmployeePhoto"   />
             </Ellipse.Fill>
+
         </Ellipse>
-        <Label Content="Insira o seu CPF" HorizontalAlignment="Left" Margin="275,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="98" Grid.Column="1" Height="26"/>
-        <TextBox HorizontalAlignment="Left" Margin="278,24,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="22"/>
-        <Label Content="Insira sua senha" HorizontalAlignment="Left" Margin="275,47,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="26"/>
-        <TextBox HorizontalAlignment="Left" Margin="278,75,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="22" />
-        <Button Content="Entrar" HorizontalAlignment="Left" Margin="278,111,0,0" Grid.RowSpan="2" Grid.Row="2" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="20"/>
+        
+        <Label x:Name="Nome" Content="{Binding}" Grid.Row="1" Grid.Column="1" Margin="179,142,97,0" 
+               VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Height="43" />
+        <Label Content="Insira o seu CPF" HorizontalAlignment="Left" Margin="261,13,0,0" Grid.Row="2" 
+               VerticalAlignment="Top" Width="148" Grid.Column="1" Height="32" FontSize="16" FontWeight="Bold"/>
+
+        <TextBox x:Name="Cpf" HorizontalAlignment="Left" Margin="261,45,0,0" Grid.Row="2" 
+                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" 
+                 Grid.Column="1" Height="29" FontSize="16" FontWeight="Bold"/>
+
+        <Button Content="Buscar" HorizontalAlignment="Left" Margin="261,89,0,0" Grid.Row="2" 
+                VerticalAlignment="Top" Width="176" Grid.Column="1" Height="29" Click="Button_Click" FontWeight="Bold"/>
+
+
+        <Grid x:Name="ClockGrid" Grid.Row="3" Grid.Column="1" Visibility="Visible" Margin="0,10,0,0" >
+            <Ellipse Margin="140,56,521,40" >
+                <Ellipse.Fill >
+                    <ImageBrush ImageSource="https://www.freeiconspng.com/thumbs/clock-png/clock-png-32.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <Ellipse Margin="468,56,195,40" >
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="https://www.freeiconspng.com/thumbs/clock-png/clock-png-32.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <Label Content="Registrar entrada" HorizontalAlignment="Left" Margin="114,10,0,0" VerticalAlignment="Top" Width="142" Height="33" FontSize="16" FontWeight="Bold" Background="#FF1ECC19"/>
+            <Label Content="Registrar saída" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Background="#FFEA6F6F"/>
+
+
+        </Grid>
+
+
+        <DataGrid x:Name="EmployeeData" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=2}" 
+                  Margin="66,185,97,0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" IsSynchronizedWithCurrentItem="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data atual" Binding="{Binding DateNow}"/>
+                <DataGridTextColumn Header="Horário de Entrada" Binding="{Binding ClockIn}"/>
+                <DataGridTextColumn Header="Saída Almoço" Binding="{Binding LunchOut}"/>
+                <DataGridTextColumn Header="Retorno Almoço" Binding="{Binding LunchIn}"/>
+                <DataGridTextColumn Header="Horário de Saída" Binding="{Binding LunchIn}"/>
+                <DataGridTextColumn Header="Total de horas" Binding="{Binding TotalHours}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Label Grid.Column="1" Content="Funcionário:" HorizontalAlignment="Left" Margin="66,141,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="108"/>
+
+
+
+
+
+
 
     </Grid>
 </Window>
