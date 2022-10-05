@@ -23,5 +23,25 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         {
             InitializeComponent();
         }
+
+        private async void Cadastro_funcionario(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new Window1();
+            newWindow.Show();
+            
+        }
+
+        private void Alertas(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Informaçôes_funcionarios(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Relatorios(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

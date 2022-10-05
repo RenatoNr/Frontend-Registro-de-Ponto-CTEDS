@@ -33,6 +33,7 @@
                         VerticalAlignment="Center"
                         Height="100" 
                         Width="200"
+                        Click="Cadastro_funcionario"
                         
                         />
                 <Button Grid.Row="0" Grid.Column="1"
@@ -41,6 +42,7 @@
                         VerticalAlignment="Center"
                         Height="100" 
                         Width="200"
+                        Click="Alertas"
                     />
                 <Button Grid.Row="1" Grid.Column="0"
                         Content="Informaçôes Funcionários"
@@ -48,6 +50,7 @@
                         VerticalAlignment="Center"
                         Height="100" 
                         Width="200"
+                        Click="Informaçôes_funcionarios"
                     />
                 <Button Grid.Row="1" Grid.Column="1"
                         Content="Relatórios"
@@ -55,6 +58,7 @@
                         VerticalAlignment="Center"
                         Height="100" 
                         Width="200"
+                        Click="Alertas"
                     />
             </Grid>
         </Grid>
