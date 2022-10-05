@@ -40,7 +40,7 @@
                 VerticalAlignment="Top" Width="176" Grid.Column="1" Height="29" Click="Button_Click" FontWeight="Bold"/>
 
 
-        <Grid x:Name="ClockGrid" Grid.Row="3" Grid.Column="1" Visibility="Visible" Margin="0,10,0,0" >
+        <Grid x:Name="ClockGrid" Grid.Row="3" Grid.Column="1" Visibility="Hidden" Margin="0,10,0,0" >
             <Ellipse Margin="140,56,521,40" >
                 <Ellipse.Fill >
                     <ImageBrush ImageSource="https://www.freeiconspng.com/thumbs/clock-png/clock-png-32.png"/>
@@ -53,14 +53,15 @@
                 </Ellipse.Fill>
             </Ellipse>
 
-            <Label Content="Registrar entrada" HorizontalAlignment="Left" Margin="114,10,0,0" VerticalAlignment="Top" Width="142" Height="33" FontSize="16" FontWeight="Bold" Background="#FF1ECC19"/>
-            <Label Content="Registrar saída" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Background="#FFEA6F6F"/>
+            <Button Content="Registrar Entrada" HorizontalAlignment="Left" Margin="114,10,0,0" VerticalAlignment="Top" Width="142" Height="33" FontSize="16" FontWeight="Bold" Background="#FF1ECC19" />
+            <Button Content="Registrar Saída" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Background="#FFEA6F6F" />
+             
 
 
         </Grid>
 
 
-        <DataGrid x:Name="EmployeeData" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=2}" 
+        <!--<DataGrid x:Name="EmployeeData" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=2}" 
                   Margin="66,185,97,0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Data atual" Binding="{Binding DateNow}"/>
@@ -72,11 +73,23 @@
 
             </DataGrid.Columns>
 
-        </DataGrid>
+        </DataGrid>-->
+        
+        
         <Label Grid.Column="1" Content="Funcionário:" HorizontalAlignment="Left" Margin="66,141,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="108"/>
 
 
+        <Grid Grid.Column="2" Grid.Row="1" Visibility="Hidden" x:Name="Hours">
+            <Label Content="Horário de Entrada: "  Margin="66,170,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightGreen" Padding="2"/>
+            <Label Content="Saída para Almoço: "  Margin="66,190,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightCoral" Padding="2"/>
+            <Label Content="Volta do Almoço: "  Margin="66,210,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightGreen" Padding="2"/>
+            <Label Content="Horário de Saída: "  Margin="66,230,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightCoral" Padding="2"/>
 
+            <Label Content=" "  Margin="180,170,0,0" Padding="2" x:Name="clockIn"/>
+            <Label Content=" "  Margin="180,190,0,0" Padding="2" x:Name="lunchIn"/>
+            <Label Content=" "  Margin="180,210,0,0" Padding="2" x:Name="lunchOut"/>
+            <Label Content=" "  Margin="180,230,0,0" Padding="2" x:Name="clockOut"/>
+        </Grid>   
 
 
 
