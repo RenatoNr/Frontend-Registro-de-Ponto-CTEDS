@@ -26,7 +26,7 @@
             </Ellipse.Fill>
 
         </Ellipse>
-        
+
         <Label x:Name="Nome" Content="{Binding}" Grid.Row="1" Grid.Column="1" Margin="179,142,97,0" 
                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Height="43" />
         <Label Content="Insira o seu CPF" HorizontalAlignment="Left" Margin="261,13,0,0" Grid.Row="2" 
@@ -55,7 +55,7 @@
 
             <Button Content="Registrar Entrada" HorizontalAlignment="Left" Margin="114,10,0,0" VerticalAlignment="Top" Width="142" Height="33" FontSize="16" FontWeight="Bold" Background="#FF1ECC19" />
             <Button Content="Registrar Saída" HorizontalAlignment="Left" Margin="448,10,0,0" VerticalAlignment="Top" Width="126" Height="33" FontSize="16" FontWeight="Bold" Background="#FFEA6F6F" />
-             
+
 
 
         </Grid>
@@ -74,8 +74,8 @@
             </DataGrid.Columns>
 
         </DataGrid>-->
-        
-        
+
+
         <Label Grid.Column="1" Content="Funcionário:" HorizontalAlignment="Left" Margin="66,141,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="108"/>
 
 
@@ -89,7 +89,8 @@
             <Label Content=" "  Margin="180,190,0,0" Padding="2" x:Name="lunchIn"/>
             <Label Content=" "  Margin="180,210,0,0" Padding="2" x:Name="lunchOut"/>
             <Label Content=" "  Margin="180,230,0,0" Padding="2" x:Name="clockOut"/>
-        </Grid>   
+        </Grid>
+        <Button Grid.Column="1" Content="Administração" HorizontalAlignment="Left" Margin="626,150,0,0" Grid.Row="3" VerticalAlignment="Top" Width="102" BorderThickness="0" Click="Button_Click_1"/>
 
 
 

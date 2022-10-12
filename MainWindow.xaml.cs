@@ -1,7 +1,9 @@
 ﻿using Frontend_Registro_de_Ponto_CTEDS.Models;
+using Frontend_Registro_de_Ponto_CTEDS.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -14,18 +16,16 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
     public partial class MainWindow : Window
     {
-        static HttpClient api = new HttpClient();
-        private string uri = "https://localhost:7222";
         private string Logo = "https://spng.pngfind.com/pngs/s/49-491581_clock-icon-clock-blue-png-transparent-png-download.png";
         public BitmapImage Photo { get; set; }
         private User Employee { get; set; }
+
+        private Api _api;
         public MainWindow()
         {
+            _api = new Api();
             InitializeComponent();
-            api.BaseAddress = new Uri(uri);
-            api.DefaultRequestHeaders.Accept
-                .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            
+
             this.Loaded += MainWindow_Loaded1;
             Photo = new BitmapImage(new Uri(Logo));
         }
@@ -34,7 +34,8 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         {
             try
             {
-                HttpResponseMessage response = await api.GetAsync("/api/User");
+
+                var response = await _api.Get("/api/User");
 
                 var clocks = await response.Content.ReadAsAsync<IEnumerable<User>>();
 
@@ -46,34 +47,38 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             }
         }
 
-
+        private BitmapImage ConvertBase64Photo(string photo)
+        {
+            var imageToByte = Convert.FromBase64String(photo);
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = new MemoryStream(imageToByte);
+            image.EndInit();
+            return image;
+        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var cpf = Cpf.Text;
-            HttpResponseMessage response = await api.GetAsync($"/api/Employee/GetByCpf?cpf={cpf}");
+            HttpResponseMessage response = await _api.Get($"/api/Employee/GetByCpf?cpf={cpf}");
             var user = response.Content.ReadAsAsync<User>();
 
             if (user.Result.Cpf != null)
             {
-                Photo = new BitmapImage(new Uri(user.Result.Photo));
+                var img = ConvertBase64Photo(user.Result.Photo);
+
+
+                Photo = img;
                 Nome.Content = user.Result.Name;
                 ClockGrid.Visibility = Visibility.Visible;
                 Hours.Visibility = Visibility.Visible;
                 EmployeePhoto.ImageSource = Photo;
 
-                HttpResponseMessage clocks = await api.GetAsync($"/api/Clock/GetByEmployee?employeeId={user.Result.Id}");
+                HttpResponseMessage clocks = await _api.Get($"/api/Clock/GetByEmployee?employeeId={user.Result.Id}");
 
-               
-                    var today =  clocks.Content.ReadAsStringAsync().Result;
-                    var s = JsonConvert.DeserializeObject(today);
-                
 
-               // var jsonString = JsonSerializer.DeserializeAsync<Clock>(today);
-                
-                //clockIn.Content = today.Result.ClockIn ;
-
-                //EmployeeData.ItemsSource = user;
+                var today = clocks.Content.ReadAsStringAsync().Result;
+                var s = JsonConvert.DeserializeObject(today);
 
             }
             else
@@ -85,13 +90,14 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             }
         }
 
-        private async static Task<HttpResponseMessage> _FindByCPF(string cpf)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
-            HttpResponseMessage response = await api.GetAsync($"/api/Employee/GetByCpf?cpf={cpf}");
-            var content = response.Content.ReadAsAsync<User>();
-
-            return response;
+            Painel painel = new Painel();
+            painel.Show();
         }
+
+
+
+
     }
 }
