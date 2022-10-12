@@ -1,0 +1,33 @@
+﻿<Window x:Class="Frontend_Registro_de_Ponto_CTEDS.Relatorio"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Frontend_Registro_de_Ponto_CTEDS"
+        mc:Ignorable="d"
+        Title="Relatorio" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label FontSize="18" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center" Margin="5" 
+               Grid.Row="0" Content="Products catalog" />
+
+        <DataGrid x:Name="reportClock" AutoGenerateColumns="False" IsReadOnly="True"
+                  Grid.Row="1" ColumnWidth="*" Margin="5" IsSynchronizedWithCurrentItem="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"  Binding="{Binding Employee.name}"/>
+                <DataGridTextColumn Header="Cpf" Binding="{Binding Employee.cpf}"/>
+                <DataGridTextColumn Header="EmployeeId" Binding="{Binding EmployeeId}"/>
+                <DataGridTextColumn Header="ClockIn" Binding="{Binding ClockIn}"/>
+                <DataGridTextColumn Header="ClockOut"  Binding="{Binding ClockOut}"/>
+                <DataGridTextColumn Header="TotalHours"  Binding="{Binding TotalHours}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

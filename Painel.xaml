@@ -58,7 +58,7 @@
                         VerticalAlignment="Center"
                         Height="100" 
                         Width="200"
-                        Click="Alertas"
+                        Click="Relatorios"
                     />
             </Grid>
         </Grid>

@@ -41,7 +41,8 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         }
         private void Relatorios(object sender, RoutedEventArgs e)
         {
-
+            var newRelatorio = new Relatorio();
+            newRelatorio.Show();
         }
     }
 }
