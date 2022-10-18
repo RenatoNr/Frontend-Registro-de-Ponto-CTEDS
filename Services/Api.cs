@@ -19,9 +19,9 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Services
         {
             api.BaseAddress = new Uri(uri);
             // api.DefaultRequestHeaders.Accept
-          //    .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-          //  api.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "multipart/form-data");
-           // api.DefaultRequestHeaders.Add("X-Requested-By", "AM-Request");
+            //    .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            //  api.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "multipart/form-data");
+            // api.DefaultRequestHeaders.Add("X-Requested-By", "AM-Request");
             //api.DefaultRequestHeaders.
             api.DefaultRequestHeaders.Add("Accept", "application/json");
         }
@@ -54,7 +54,19 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Services
                 //new KeyValuePair<string, string>("photo",$"as")
             });
             var response = await api.PostAsJsonAsync<User>(url, obj);
-            return  response;
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> CreateClock(Clock clock, string url)
+        {
+            var response = await api.PostAsJsonAsync<Clock>(url, clock);
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> UpdateTime(string url, HttpContent content)
+        {
+            var response = await api.PostAsync(url, content);
+            return response;
         }
     }
 }

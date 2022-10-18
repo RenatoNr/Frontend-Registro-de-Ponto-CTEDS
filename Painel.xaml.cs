@@ -37,7 +37,8 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         }
         private void Informaçôes_funcionarios(object sender, RoutedEventArgs e)
         {
-
+            var infoPage = new Info();
+            infoPage.Show();
         }
         private void Relatorios(object sender, RoutedEventArgs e)
         {
