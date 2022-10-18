@@ -21,8 +21,6 @@
         <DataGrid x:Name="reportClock" AutoGenerateColumns="False" IsReadOnly="True"
                   Grid.Row="1" ColumnWidth="*" Margin="5" IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"  Binding="{Binding Employee.name}"/>
-                <DataGridTextColumn Header="Cpf" Binding="{Binding Employee.cpf}"/>
                 <DataGridTextColumn Header="EmployeeId" Binding="{Binding EmployeeId}"/>
                 <DataGridTextColumn Header="ClockIn" Binding="{Binding ClockIn}"/>
                 <DataGridTextColumn Header="ClockOut"  Binding="{Binding ClockOut}"/>
