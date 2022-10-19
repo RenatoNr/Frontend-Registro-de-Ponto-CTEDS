@@ -17,13 +17,14 @@
 
         </Grid.RowDefinitions>
 
-        <Label Content="Informações de Funcionários" FontSize="18" Grid.Column="0" HorizontalAlignment="Center" Height="50" VerticalAlignment="Center" FontWeight="Bold"/>
+        <Label Name="Topo" FontSize="18" Grid.Column="0" HorizontalAlignment="Center" Height="50" VerticalAlignment="Center" FontWeight="Bold"/>
 
         <Label Content="Busca por nome" Grid.Row="1" Height="25" Width="150" FontWeight="Bold" Margin="25,3,225,172" VerticalContentAlignment="Center"/>
         <TextBox Grid.Row="1" Height="40" x:Name="SearchByName" Width="200" VerticalAlignment="Bottom" Margin="25,0,175,135" TextChanged="SearchByName_TextChanged"/>
 
         <Label Content="Busca por CPF" Grid.Row="1" Height="25" Width="150" FontWeight="Bold" Margin="25,83,225,92" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="1" Height="40" Width="200" x:Name="SearchByCPF" VerticalAlignment="Bottom" Margin="25,0,175,53" />
+        <TextBox Grid.Row="1" Height="40" Width="200" x:Name="SearchByCPF" VerticalAlignment="Bottom"
+                 Margin="25,0,175,53" TextChanged="SearchByCPF_TextChanged"  />
 
         <DataGrid Grid.Row="1" x:Name="EmployeeDataGrid" Margin="25,175,24,-138" AutoGenerateColumns="False" IsReadOnly="True"
                    ColumnWidth="*"  IsSynchronizedWithCurrentItem="True" Visibility="Visible"  MouseDoubleClick="EmployeeDataGrid_MouseDoubleClick">

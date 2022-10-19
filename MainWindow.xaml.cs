@@ -24,6 +24,8 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         private User Employee { get; set; }
         private int EmployeeId { get; set; }
 
+        private string Password { get; set; }
+        private string LoginCpf { get; set; }
 
         private Api _api;
         public MainWindow()
@@ -63,7 +65,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             return image;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void SearchCPFBtn(object sender, RoutedEventArgs e)
         {
             var cpf = Cpf.Text;
             HttpResponseMessage response = await _api.Get($"/api/Employee/GetByCpf?cpf={cpf}");
@@ -73,6 +75,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             {
                 var img = ConvertBase64Photo(user.Result.Photo);
 
+                LoginCpf = user.Result.Cpf;
 
                 EmployeeId = user.Result.Id;
                 Photo = img;
@@ -105,51 +108,81 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void AdminButton(object sender, RoutedEventArgs e)
         {
             Painel painel = new Painel();
             painel.Show();
         }
 
-        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        private async Task< string> _Login()
+        {
+            PasswordConfirm passwordConfirm = new PasswordConfirm();
+            passwordConfirm.ShowDialog();
+            Password = passwordConfirm.Pass;
+
+            var Login = await _api.Login(LoginCpf, Password);
+
+            var loginResult = Login.Content.ReadAsStringAsync();
+
+            return loginResult.Result;
+        }
+
+        private async void RegisterInButton(object sender, RoutedEventArgs e)
         {
 
             var getClocks = await _GetEmployeeClocks(EmployeeId);
+                     
 
+            var login = await  _Login();
 
-            if (getClocks.ClockIn == null)
+            if (login == "false")
             {
-                Clock clock = new Clock();
-                var now = DateTime.Now;
-                clock.EmployeeId = EmployeeId;
-                clock.ClockIn = now;
-                clock.TotalHours = "";
-
-                var response = await _api.CreateClock(clock, "/api/Clock/");
-                if (response != null)
-                {
-                    MessageBox.Show("Registro de entrada efetuado com sucesso");
-                    return;
-                }
-            }
-
-            if (getClocks.ClockIn != null && getClocks.LunchIn != null && getClocks.LunchOut ==null)
-            {
-                HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-
-                var response = await _api.UpdateTime($"/api/Clock/UpdateTime?Id={getClocks.Id}&update=1", content);
-                if (response != null)
-                {
-                    MessageBox.Show("Registro de entrada efetuado com sucesso");
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Nenhum registro de saída encontrado");
+                MessageBox.Show("Senha Incorreta.");
                 return;
+            }
+
+
+            if (login == "true")
+            {
+                if (getClocks.ClockIn == null)
+                {
+                    Clock clock = new Clock();
+                    var now = DateTime.Now;
+                    clock.EmployeeId = EmployeeId;
+                    clock.ClockIn = now;
+                    clock.TotalHours = "";
+
+                    var response = await _api.CreateClock(clock, "/api/Clock/");
+                    if (response != null)
+                    {
+                        MessageBox.Show("Registro de entrada efetuado com sucesso");
+
+                        return;
+                    }
+                }
+
+                if (getClocks.ClockIn != null && getClocks.LunchIn != null && getClocks.LunchOut == null)
+                {
+                    HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
+
+                    var response = await _api.UpdateTime($"/api/Clock/UpdateTime?Id={getClocks.Id}&update=1", content);
+                    if (response != null)
+                    {
+                        MessageBox.Show("Registro de entrada efetuado com sucesso");
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum registro de saída encontrado");
+                    return;
+
+                }
 
             }
+
+
+
 
 
 
@@ -172,40 +205,54 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             return null;
         }
 
-        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void RegisterOutButton(object sender, RoutedEventArgs e)
         {
             var getClocks = await _GetEmployeeClocks(EmployeeId);
 
+            var login = await _Login();
 
-            if (getClocks.LunchIn == null)
+            if (login == "false")
             {
-                HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-
-                var response = await _api.UpdateTime($"/api/Clock/UpdateTime?Id={getClocks.Id}&update=0", content);
-                if (response != null)
-                {
-                    MessageBox.Show("Registro de Saída para almoço efetuado com sucesso");
-                    return;
-                }
-            }
-
-            if (getClocks.LunchOut != null && getClocks.ClockOut == null)
-            {
-                HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-
-                var response = await _api.UpdateTime($"/api/Clock/UpdateTime?Id={getClocks.Id}&update=2", content);
-                if (response != null)
-                {
-                    MessageBox.Show("Registro de Saída de expediente efetuado com sucesso");
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Nenhum registro de saída encontrado ou carga horária já preenchida");
+                MessageBox.Show("Senha Incorreta.");
                 return;
+            }
+
+            if(login == "true")
+            {
+                if (getClocks.LunchIn == null && getClocks.ClockIn != null)
+                {
+                    HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
+
+                    var response = await _api.UpdateTime($"/api/Clock/UpdateTime?Id={getClocks.Id}&update=0", content);
+                    if (response != null)
+                    {
+                        MessageBox.Show("Registro de Saída para almoço efetuado com sucesso");
+                        return;
+                    }
+                }
+
+
+                if (getClocks.LunchOut != null && getClocks.ClockOut == null)
+                {
+                    HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
+
+                    var response = await _api.UpdateTime($"/api/Clock/UpdateTime?Id={getClocks.Id}&update=2", content);
+                    if (response != null)
+                    {
+                        MessageBox.Show("Registro de Saída de expediente efetuado com sucesso");
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum registro de saída encontrado ou carga horária já preenchida");
+                    return;
+
+                }
 
             }
+
+            
 
 
         }
