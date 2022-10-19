@@ -71,7 +71,9 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         private void SearchByName_TextChanged(object sender, TextChangedEventArgs e)
         {
-                                               
+                     
+            if(SearchByName.Text.Length > 2)
+            {
                 var users = Employees.Where(x => x.Name.ToLower().Contains(SearchByName.Text.ToLower()));
                 if (users != null && SearchByCPF.Text != null)
                 {
@@ -82,20 +84,18 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 {
                     EmployeeDataGrid.Visibility = Visibility.Collapsed;
                 }
+            }
+
+
+            if (SearchByName.Text.Length == 0)
+            {
+                EmployeeDataGrid.ItemsSource = null;
+            }
+                
            
                       
         }
-
-        private void EmployeeDataGrid_CurrentCellChanged(object sender, EventArgs e)
-        {
-
-            //var row = EmployeeDataGrid
-
-            User doc = EmployeeDataGrid.SelectedCells[0].Item as User;
-
-            // var employee = Employees.FirstOrDefault(x=>x.Id == doc.Row[0] );
-            MessageBox.Show(Convert.ToString(doc.Cpf));
-        }
+             
 
         private void EmployeeDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -112,6 +112,25 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             Nome.Content = cellInfo.Name;
             CPF.Content = cellInfo.Cpf;
             Cargo.Content = cellInfo.EmployeePost;
+        }
+
+        private void SearchByCPF_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (SearchByCPF.Text.Length > 2)
+            {
+                var users = Employees.Where(x => x.Cpf.Contains(SearchByCPF.Text));
+                if (users != null && SearchByCPF.Text != null)
+                {
+                    EmployeeDataGrid.ItemsSource = users.ToList();
+                    EmployeeDataGrid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    EmployeeDataGrid.Visibility = Visibility.Collapsed;
+                }
+            }
+
         }
     }
 
