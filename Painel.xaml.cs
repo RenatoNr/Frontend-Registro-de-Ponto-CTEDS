@@ -33,7 +33,8 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         private void Alertas(object sender, RoutedEventArgs e)
         {
-
+            var alertPage = new Alerta();
+            alertPage.Show();
         }
         private void Informaçôes_funcionarios(object sender, RoutedEventArgs e)
         {
