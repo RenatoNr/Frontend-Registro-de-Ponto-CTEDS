@@ -31,11 +31,11 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
             InitializeComponent();
             GetClock();
-            GetUsers();
+            GetFaltas();
        
             this.Loaded += Alertas_Loaded;
         }
-        private async void GetUsers()
+        private async void GetFaltas()
         {
             using (HttpClient api = new HttpClient())
             {
@@ -73,6 +73,13 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                     var faltas = (diasuteis - diastrabalhados);
                     employee.faltas = faltas;
                 }
+                foreach (var employee in Employees)
+                {
+                    if (employee.faltas > 5)
+                    {
+                        MessageBox.Show("Trabalhador " + employee.Name + " faltou mais que o limite permitido");
+                    }
+                }
 
             }
         }
@@ -99,6 +106,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         async void Alertas_Loaded(object sender, RoutedEventArgs e)
         {
+            
             
             reportAlerta.ItemsSource = Employees;
 
