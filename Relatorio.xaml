@@ -16,7 +16,7 @@
         <Label FontSize="18" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center" Margin="5" 
-               Grid.Row="0" Content="Products catalog" />
+               Grid.Row="0" Content="Relatorios" />
 
         <DataGrid x:Name="reportClock" AutoGenerateColumns="False" IsReadOnly="True"
                   Grid.Row="1" ColumnWidth="*" Margin="5" IsSynchronizedWithCurrentItem="True">

@@ -21,7 +21,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 {
     public partial class Alerta : Window
     {
-        DateTime _date = DateTime.Parse("16 / 10 / 2022");
+        DateTime _date = DateTime.Parse("19 / 10 / 2022");
 
         private string uri = "https://localhost:7222";
         private List<User> Employees { get; set; } = new List<User>();
@@ -30,9 +30,6 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         {
 
             InitializeComponent();
-            GetClock();
-            GetFaltas();
-       
             this.Loaded += Alertas_Loaded;
         }
         private async void GetFaltas()
@@ -77,7 +74,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 {
                     if (employee.faltas > 5)
                     {
-                        MessageBox.Show("Trabalhador " + employee.Name + " faltou mais que o limite permitido");
+                        MessageBox.Show("Trabalhador " + employee.Name + ",cpf:" + employee.Cpf + " faltou mais que o limite permitido");
                     }
                 }
 
@@ -106,8 +103,8 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         async void Alertas_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            
+            GetClock();
+            GetFaltas();
             reportAlerta.ItemsSource = Employees;
 
         }
