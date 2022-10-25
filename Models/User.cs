@@ -17,5 +17,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Models
         public string EmployeePost { get; set; }
         public Clock Clock { get; set; }
         public bool IsAdmin { get; set; }
+
+        public string excedeulimite { get; set; } = "não";
     }
 }

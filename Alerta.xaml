@@ -26,6 +26,7 @@
                     <DataGridTextColumn Header="Nome" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Cpf" Binding="{Binding Cpf}"/>
                     <DataGridTextColumn Header="Faltas" Binding="{Binding faltas}"/>
+                    <DataGridTextColumn Header="Excedeu limite" Binding="{Binding excedeulimite}"/>
                    
                 </DataGrid.Columns>
             </DataGrid>

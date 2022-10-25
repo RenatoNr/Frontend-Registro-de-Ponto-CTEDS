@@ -25,15 +25,19 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         private string uri = "https://localhost:7222";
         private List<User> Employees { get; set; } = new List<User>();
-        private List<Clock> Clocks { get; set; } = new List<Clock>();
+        private List<WorkDay> WorkDays { get; set; } = new List<WorkDay>();
         public Alerta()
         {
 
             InitializeComponent();
+            GetWorksDay();
+            GetFaltas();
             this.Loaded += Alertas_Loaded;
         }
         private async void GetFaltas()
         {
+            
+            bool excedeulimitefaltas = false;
             using (HttpClient api = new HttpClient())
             {
                 api.BaseAddress = new Uri(uri);
@@ -51,51 +55,47 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 }
                 foreach (var employee in Employees)
                 {
-                    int diastrabalhados = 0;
-                    var dias = (DateTime.Now.Date - _date).ToString("dd");
-                    var diasuteis = Int32.Parse(dias) + 1;
-                    var clocks = Clocks.Where(x => x.EmployeeId == employee.Id);
-                    foreach (var clock in clocks)
+                    int faltas = 0;
+                    var workdays = WorkDays.Where(x => x.EmployeeId == employee.Id);
+                    foreach (var workday in workdays)
                     {
-                        if (clock.ClockOut.ToString() == "")
-                        {
-                           
-                        }
-                        else
-                        {
-                           diastrabalhados++;
-                        }
-                       
+                        faltas++;
                     }
-                    var faltas = (diasuteis - diastrabalhados);
                     employee.faltas = faltas;
                 }
                 foreach (var employee in Employees)
                 {
                     if (employee.faltas > 5)
                     {
+                        employee.excedeulimite = "sim";
+                        excedeulimitefaltas = true;
                         MessageBox.Show("Trabalhador " + employee.Name + ",cpf:" + employee.Cpf + " faltou mais que o limite permitido");
                     }
+                }
+                if (excedeulimitefaltas)
+                {
+                    MessageBox.Show("Trabalhador faltou mais que o limite permitido");
                 }
 
             }
         }
-        private async void GetClock()
+
+        private async void GetWorksDay()
         {
             using (HttpClient api = new HttpClient())
             {
                 api.BaseAddress = new Uri(uri);
                 api.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                var getClocks = await api.GetAsync("/api/Clock");
+                var getWorksDay = await api.GetAsync("/api/WorkDay");
 
-                var response = await getClocks.Content.ReadAsStringAsync();
+                var response = await getWorksDay.Content.ReadAsStringAsync();
 
-                var jsonObject = JsonConvert.DeserializeObject<List<Clock>>(response);
+                var jsonObject = JsonConvert.DeserializeObject<List<WorkDay>>(response);
 
                 foreach (var item in jsonObject)
                 {
-                    Clocks.Add(item);
+                    WorkDays.Add(item);
                 }
 
             }
@@ -103,8 +103,6 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         async void Alertas_Loaded(object sender, RoutedEventArgs e)
         {
-            GetClock();
-            GetFaltas();
             reportAlerta.ItemsSource = Employees;
 
         }
