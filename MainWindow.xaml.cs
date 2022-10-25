@@ -21,16 +21,15 @@ namespace Frontend_Registro_de_Ponto_CTEDS
     {
         private string Logo = "https://spng.pngfind.com/pngs/s/49-491581_clock-icon-clock-blue-png-transparent-png-download.png";
         public BitmapImage Photo { get; set; }
-        private User Employee { get; set; }
-        private int EmployeeId { get; set; }
 
+        private int EmployeeId { get; set; }
         private string Password { get; set; }
         private string LoginCpf { get; set; }
 
         private Api _api;
-        public MainWindow()
+        public MainWindow(Api api)
         {
-            _api = new Api();
+            _api = api;
             InitializeComponent();
 
             this.Loaded += MainWindow_Loaded1;
@@ -114,7 +113,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             painel.Show();
         }
 
-        private async Task< string> _Login()
+        private async Task<string> _Login()
         {
             PasswordConfirm passwordConfirm = new PasswordConfirm();
             passwordConfirm.ShowDialog();
@@ -131,9 +130,9 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         {
 
             var getClocks = await _GetEmployeeClocks(EmployeeId);
-                     
 
-            var login = await  _Login();
+
+            var login = await _Login();
 
             if (login == "false")
             {
@@ -217,7 +216,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 return;
             }
 
-            if(login == "true")
+            if (login == "true")
             {
                 if (getClocks.LunchIn == null && getClocks.ClockIn != null)
                 {
@@ -252,7 +251,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
             }
 
-            
+
 
 
         }

@@ -14,7 +14,7 @@
         <Label FontSize="25" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center" Margin="5" 
-               Grid.Row="0" Content="Cadastro Funcionario" />
+               Grid.Row="0" Content="Cadastro Funcionário" />
 
         <Grid Grid.Row="1">
             <Grid Name="NewProductGrid">

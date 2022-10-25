@@ -1,4 +1,5 @@
 ﻿using Frontend_Registro_de_Ponto_CTEDS.Models;
+using Frontend_Registro_de_Ponto_CTEDS.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,48 +32,55 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         User selectedUser = new User();
 
         private BitmapImage Photo { get; set; }
+
+        private readonly Api api1;
         public Info()
         {
-
             InitializeComponent();
+            api1 = new Api();
             GetUsers();
-            //SetDataGrid();
 
         }
 
-        private void SetDataGrid()
-        {
-            EmployeeDataGrid.ItemsSource = Employees;
-        }
+     
 
         private async void GetUsers()
         {
-            using (HttpClient api = new HttpClient())
+            //using (HttpClient api = new HttpClient())
+            //{
+            //    api.BaseAddress = new Uri(uri);
+            //    api.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            //    var getEmployees = await api.GetAsync("/api/Employee");
+
+            //    var response = await getEmployees.Content.ReadAsStringAsync();
+
+            //    var jsonObject = JsonConvert.DeserializeObject<List<User>>(response);
+
+            //    foreach (var item in jsonObject)
+            //    {
+            //        Employees.Add(item);
+            //    }
+
+
+            //}
+
+            HttpResponseMessage employees = await api1.Get("/api/Employee");
+            var response = await employees.Content.ReadAsStringAsync();
+
+            var jsonObject = JsonConvert.DeserializeObject<List<User>>(response);
+
+            foreach (var item in jsonObject)
             {
-                api.BaseAddress = new Uri(uri);
-                api.DefaultRequestHeaders.Add("Accept", "application/json");
-
-                var getEmployees = await api.GetAsync("/api/Employee");
-
-                var response = await getEmployees.Content.ReadAsStringAsync();
-
-                var jsonObject = JsonConvert.DeserializeObject<List<User>>(response);
-                                
-                foreach (var item in jsonObject)
-                {
-                    Employees.Add(item);
-                }
-                                             
-
+                Employees.Add(item);
             }
-
 
         }
 
         private void SearchByName_TextChanged(object sender, TextChangedEventArgs e)
         {
-                     
-            if(SearchByName.Text.Length > 2)
+
+            if (SearchByName.Text.Length > 2)
             {
                 var users = Employees.Where(x => x.Name.ToLower().Contains(SearchByName.Text.ToLower()));
                 if (users != null && SearchByCPF.Text != null)
@@ -91,11 +99,11 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             {
                 EmployeeDataGrid.ItemsSource = null;
             }
-                
-           
-                      
+
+
+
         }
-             
+
 
         private void EmployeeDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
