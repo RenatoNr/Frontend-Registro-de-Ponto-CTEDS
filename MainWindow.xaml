@@ -140,7 +140,7 @@
 
         <Button Grid.Column="1" Content="Administração" HorizontalAlignment="Left" 
                 Margin="626,150,0,0" Grid.Row="3" VerticalAlignment="Top" 
-                Width="102" BorderThickness="0" Click="AdminButton"/>
+                Width="102" BorderThickness="0" Click="AdminButton" Name="AdminBtn"/>
         <Label 
             Grid.Column="1" Content="ERRO DE COMUNICAÇÃO COM A API." 
             HorizontalAlignment="Left" Margin="163,203,0,0" Grid.Row="1" 

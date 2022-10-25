@@ -69,12 +69,22 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Services
             return response;
         }
 
-        public async Task<HttpResponseMessage> Login(string cpf, string password)
+        public async Task<HttpResponseMessage> Login(string cpf, string password, string? typeLogin)
             
         {
             HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-            var response = await api.PostAsync($"{uri}/api/Employee/Login?cpf={cpf}&password={password}", content );
-            return response;
+            if(typeLogin == "admin")
+            {
+                var response = await api.PostAsync($"{uri}/api/User/Login?cpf={cpf}&password={password}", content);
+                return response;
+            }
+            else
+            {
+                var response = await api.PostAsync($"{uri}/api/Employee/Login?cpf={cpf}&password={password}", content);
+                return response;
+            }
+
+            
         }
     }
 }

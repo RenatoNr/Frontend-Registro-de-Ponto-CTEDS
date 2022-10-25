@@ -67,7 +67,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 {
                     if (employee.faltas > 5)
                     {
-                        employee.excedeulimite = "sim";
+                        //employee.excedeulimite = "sim";
                         excedeulimitefaltas = true;
                         MessageBox.Show("Trabalhador " + employee.Name + ",cpf:" + employee.Cpf + " faltou mais que o limite permitido");
                     }
@@ -93,10 +93,15 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
                 var jsonObject = JsonConvert.DeserializeObject<List<WorkDay>>(response);
 
-                foreach (var item in jsonObject)
+                if(jsonObject != null)
                 {
-                    WorkDays.Add(item);
+                    foreach (var item in jsonObject)
+                    {
+                        WorkDays.Add(item);
+                    }
                 }
+
+                
 
             }
         }
