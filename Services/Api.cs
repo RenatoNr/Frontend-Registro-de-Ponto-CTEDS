@@ -12,12 +12,13 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Services
     public class Api
     {
         private static HttpClient api = new HttpClient();
-        private Uri uri = new Uri("https://localhost:7222") ;
+        private string uri = "https://localhost:7222";
 
 
         public Api()
         {
-            api.BaseAddress = uri;   
+            api.BaseAddress = new Uri(uri);
+           
             api.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
@@ -29,6 +30,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Services
 
         public async Task<HttpResponseMessage> Post(User obj, string url)
         {
+
             var response = await api.PostAsJsonAsync<User>(url, obj);
             return response;
         }
@@ -45,22 +47,22 @@ namespace Frontend_Registro_de_Ponto_CTEDS.Services
             return response;
         }
 
-        public async Task<HttpResponseMessage> Login(string cpf, string password)
+        public async Task<HttpResponseMessage> Login(string cpf, string password, string? typeLogin)
             
         {
             HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-            var response = await api.PostAsync($"{uri}/api/Employee/Login?cpf={cpf}&password={password}", content );
-            return response;
+            if(typeLogin == "admin")
+            {
+                var response = await api.PostAsync($"{uri}/api/User/Login?cpf={cpf}&password={password}", content);
+                return response;
+            }
+            else
+            {
+                var response = await api.PostAsync($"{uri}/api/Employee/Login?cpf={cpf}&password={password}", content);
+                return response;
+            }
+
+            
         }
-
-        public async Task<HttpResponseMessage> LoginAdm(string cpf, string password)
-
-        {
-            HttpContent content = new StringContent("", Encoding.UTF8, "application/json");
-            var response = await api.PostAsync($"{uri}/api/Employee/Login?cpf={cpf}&password={password}", content);
-            return response;
-        }
-
-       
     }
 }

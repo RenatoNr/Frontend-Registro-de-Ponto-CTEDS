@@ -63,22 +63,6 @@
 
         </Grid>
 
-
-        <!--<DataGrid x:Name="EmployeeData" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=2}" 
-                  Margin="66,185,97,0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" IsSynchronizedWithCurrentItem="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Data atual" Binding="{Binding DateNow}"/>
-                <DataGridTextColumn Header="Horário de Entrada" Binding="{Binding ClockIn}"/>
-                <DataGridTextColumn Header="Saída Almoço" Binding="{Binding LunchOut}"/>
-                <DataGridTextColumn Header="Retorno Almoço" Binding="{Binding LunchIn}"/>
-                <DataGridTextColumn Header="Horário de Saída" Binding="{Binding LunchIn}"/>
-                <DataGridTextColumn Header="Total de horas" Binding="{Binding TotalHours}"/>
-
-            </DataGrid.Columns>
-
-        </DataGrid>-->
-
-
         <Grid ShowGridLines="True" Grid.Column="1" Grid.Row="1" Visibility="Hidden" x:Name="Hours" Margin="0,172,52,29" Background="AliceBlue">
 
             <Grid.ColumnDefinitions>
@@ -105,34 +89,6 @@
             <Label Grid.Row="1" Grid.Column="1" Name="lunchInClock" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Background="PaleVioletRed"/>
             <Label Grid.Row="1" Grid.Column="2" Name="lunchOutClock" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Background="LawnGreen"/>
             <Label Grid.Row="1" Grid.Column="3" Name="checkOutClock" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Background="PaleVioletRed"/>
-
-
-            <!--<Label Content="Horário de Entrada: "  Margin="66,170,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightGreen" Padding="2"/>
-            <Label Content="Saída para Almoço: "  Margin="66,190,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightCoral" Padding="2"/>
-            <Label Content="Volta do Almoço: "  Margin="66,210,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightGreen" Padding="2"/>
-            <Label Content="Horário de Saída: "  Margin="66,230,0,0" HorizontalAlignment="Left" Width="115" VerticalAlignment="Top" Background="LightCoral" Padding="2"/>
-
-            <Label Content=" "  Margin="180,141,353,91" Padding="2" Name="ClockInRegister"/>
-            <Label Content=" "  Margin="180,190,0,0" Padding="2" x:Name="lunchIn"/>
-            <Label Content=" "  Margin="180,210,0,0" Padding="2" x:Name="lunchOut"/>
-            <Label Content=" "  Margin="180,230,0,0" Padding="2" x:Name="clockOut"/>-->
-
-
-
-
-            <!--<DataGrid x:Name="EmployeeData" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=2}" 
-                  Margin="66,185,97,0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" IsSynchronizedWithCurrentItem="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Data atual" Binding="{Binding DateNow}"/>
-                    <DataGridTextColumn Header="Horário de Entrada" Binding="{Binding ClockInRegister}"/>
-                    <DataGridTextColumn Header="Saída Almoço" Binding="{Binding LunchOut}"/>
-                    <DataGridTextColumn Header="Retorno Almoço" Binding="{Binding LunchIn}"/>
-                    <DataGridTextColumn Header="Horário de Saída" Binding="{Binding LunchIn}"/>
-                    <DataGridTextColumn Header="Total de horas" Binding="{Binding TotalHours}"/>
-
-                </DataGrid.Columns>
-
-            </DataGrid>-->
 
 
         </Grid>
