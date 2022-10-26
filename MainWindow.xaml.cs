@@ -21,15 +21,16 @@ namespace Frontend_Registro_de_Ponto_CTEDS
     {
         private string Logo = "https://spng.pngfind.com/pngs/s/49-491581_clock-icon-clock-blue-png-transparent-png-download.png";
         public BitmapImage Photo { get; set; }
-
+        private User Employee { get; set; }
         private int EmployeeId { get; set; }
+
         private string Password { get; set; }
         private string LoginCpf { get; set; }
 
         private Api _api;
-        public MainWindow(Api api)
+        public MainWindow()
         {
-            _api = api;
+            _api = new Api();
             InitializeComponent();
 
             this.Loaded += MainWindow_Loaded1;
@@ -44,7 +45,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 var response = await _api.Get("/api/User");
 
                 var clocks = await response.Content.ReadAsAsync<IEnumerable<User>>();
-
+                EmployeePhoto.ImageSource = new BitmapImage(new Uri(Logo));
             }
             catch (Exception)
             {
@@ -97,7 +98,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             }
             else
             {
-                EmployeePhoto.ImageSource = null;
+                EmployeePhoto.ImageSource = new BitmapImage(new Uri(Logo));
                 Nome.Content = "Cpf não encontrado.";
                 ClockGrid.Visibility = Visibility.Hidden;
 
@@ -107,19 +108,40 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             }
         }
 
-        private void AdminButton(object sender, RoutedEventArgs e)
+        private async void AdminButton(object sender, RoutedEventArgs e)
         {
-            Painel painel = new Painel();
-            painel.Show();
+            // var getUser = await _GetEmployeeClocks(EmployeeId);
+
+
+            var login = await _Login("admin");
+
+            if (login == "true")
+            {
+                Painel painel = new Painel();
+                painel.Show();
+            }
+
+            if (login == "false")
+            {
+                MessageBox.Show("Senha Incorreta.");
+                return;
+            }
+
+
         }
 
-        private async Task<string> _Login()
+        private async Task<string> _Login(string typeLogin)
         {
             PasswordConfirm passwordConfirm = new PasswordConfirm();
             passwordConfirm.ShowDialog();
             Password = passwordConfirm.Pass;
 
-            var Login = await _api.Login(LoginCpf, Password);
+            if (typeLogin == "admin")
+            {
+                LoginCpf = "0000";
+            }
+
+            var Login = await _api.Login(LoginCpf, Password, typeLogin);
 
             var loginResult = Login.Content.ReadAsStringAsync();
 
@@ -132,7 +154,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
             var getClocks = await _GetEmployeeClocks(EmployeeId);
 
 
-            var login = await _Login();
+            var login = await _Login("employee");
 
             if (login == "false")
             {
@@ -208,7 +230,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
         {
             var getClocks = await _GetEmployeeClocks(EmployeeId);
 
-            var login = await _Login();
+            var login = await _Login("employee");
 
             if (login == "false")
             {
