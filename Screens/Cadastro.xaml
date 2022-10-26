@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend_Registro_de_Ponto_CTEDS"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Cadastro de Funcionário" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />

@@ -21,7 +21,6 @@ namespace Frontend_Registro_de_Ponto_CTEDS
     {
         private string Logo = "https://spng.pngfind.com/pngs/s/49-491581_clock-icon-clock-blue-png-transparent-png-download.png";
         public BitmapImage Photo { get; set; }
-        private User Employee { get; set; }
         private int EmployeeId { get; set; }
 
         private string Password { get; set; }
@@ -87,7 +86,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
                 HttpResponseMessage clocks = await _api.Get($"/api/Clock/GetTodayClock?employeeId={user.Result.Id}");
 
-                var today = await clocks.Content.ReadAsStringAsync(); //.ReadAsStringAsync().Result.Replace("\\","").Replace("[]","").Trim(new char[1] {'"'});
+                var today = await clocks.Content.ReadAsStringAsync(); 
 
                 var s = JsonConvert.DeserializeObject<Clock>(today);
                 checkInClock.Content = s.ClockIn;
@@ -110,9 +109,7 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
         private async void AdminButton(object sender, RoutedEventArgs e)
         {
-            // var getUser = await _GetEmployeeClocks(EmployeeId);
-
-
+           
             var login = await _Login("admin");
 
             if (login == "true")
@@ -202,11 +199,6 @@ namespace Frontend_Registro_de_Ponto_CTEDS
 
             }
 
-
-
-
-
-
         }
 
         private async Task<Clock> _GetEmployeeClocks(int id)
@@ -272,8 +264,6 @@ namespace Frontend_Registro_de_Ponto_CTEDS
                 }
 
             }
-
-
 
 
         }
